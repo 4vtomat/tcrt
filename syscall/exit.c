@@ -1,5 +1,8 @@
-void exit(int exitCode)
+#include "unistd.h"
+#include "syscall.h"
+
+void _exit(int exitCode)
 {
-	asm("syscall \n\t"
-			:: "a"(60), "D"(exitCode));
+	int ret;
+	SYSCALL1(SYS_EXIT, ret, exitCode);
 }

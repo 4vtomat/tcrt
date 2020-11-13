@@ -1,7 +1,9 @@
-int write(int fd, const void* buffer, unsigned size)
+#include "unistd.h"
+#include "syscall.h"
+
+int write(unsigned int fd, const char* buffer, size_t size)
 {
 	int ret;
-	asm("syscall \n\t"
-			:"=a"(ret): "a"(1), "D"(fd), "S"((long)buffer), "d"(size));
+	SYSCALL3(SYS_WRITE, ret, fd, (void*)buffer, size);
 	return ret;
 }

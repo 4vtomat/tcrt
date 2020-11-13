@@ -1,8 +1,9 @@
+#include "unistd.h"
+#include "syscall.h"
+
 int fork()
 {
-	int n = 57;
 	int ret = 0;
-	asm("syscall"
-			:"=a"(ret): "a"(n));
+	SYSCALL(SYS_FORK, ret);
 	return ret;
 }

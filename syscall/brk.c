@@ -1,7 +1,9 @@
-void* brk(unsigned long n)
+#include "unistd.h"
+#include "syscall.h"
+
+void* brk(void* n)
 {
 	void* ret;
-	asm("syscall \n\t"
-			:"=a"(ret): "a"(12), "D"(n));
+	SYSCALL1(SYS_BRK, ret, n);
 	return ret;
 }
